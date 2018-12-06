@@ -50,7 +50,7 @@ def read_fn(file_references, mode, params=None):
         t2_fl = sitk.GetArrayFromImage(
             sitk.ReadImage(str(os.path.join(img_fn, 'T2_FLAIR.nii'))))
         """
-        t1_sitk=sitk.ReadImage(str(os.path.join(img_fn,'mr_train_1001_image.nii')))
+        t1_sitk=sitk.ReadImage(str(os.path.join(img_fn,'T1.nii')))
         t1 = sitk.GetArrayFromImage(t1_sitk)
 
         # Normalise volume images
@@ -75,7 +75,7 @@ def read_fn(file_references, mode, params=None):
         """
         lbl = sitk.GetArrayFromImage(sitk.ReadImage(str(os.path.join(
             img_fn,
-            'mr_train_1001_label.nii')))).astype(np.int32)
+            'T1_LABEL.nii')))).astype(np.int32)
 
         # Augment if used in training mode
         if mode == tf.estimator.ModeKeys.TRAIN:
