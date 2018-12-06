@@ -93,7 +93,7 @@ if __name__ == '__main__':
     parser.add_argument('--verbose', default=False, action='store_true')
     parser.add_argument('--cuda_devices', '-c', default='0')
 
-    parser.add_argument('--model_path', '-p', default='/tmp/mrbrains_segmentation/')
+    parser.add_argument('--model_path', '-p', default='/tmp/mrcardiac_segmentation/')
     # parser.add_argument('--csv', default='mrbrains.csv')
     parser.add_argument('--csv', default='mrcardiac.csv')
 
