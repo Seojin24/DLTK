@@ -94,8 +94,8 @@ def model_fn(features, labels, mode, params):
     my_image_summaries['labels'] = tf.cast(labels['y'], tf.float32)[0, 0, :, :]
     my_image_summaries['predictions'] = tf.cast(net_output_ops['y_'], tf.float32)[0, 0, :, :]
 
-    #expected_output_size = [1, 128, 128, 1]  
-    expected_output_size = [256, 256, 256]  
+    expected_output_size = [1, 128, 128, 1]  
+    #expected_output_size = [256, 256, 256]  
     # [B, W, H, C]  
     #exported_output_size = []
     #[256,256,256] 
