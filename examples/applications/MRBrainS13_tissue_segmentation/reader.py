@@ -42,30 +42,40 @@ def read_fn(file_references, mode, params=None):
 
         # Read the image nii with sitk and keep the pointer to the sitk.Image
         # of an input
+        """
         t1_sitk = sitk.ReadImage(str(os.path.join(img_fn, 'T1.nii')))
         t1 = sitk.GetArrayFromImage(t1_sitk)
         t1_ir = sitk.GetArrayFromImage(
             sitk.ReadImage(str(os.path.join(img_fn, 'T1_IR.nii'))))
         t2_fl = sitk.GetArrayFromImage(
             sitk.ReadImage(str(os.path.join(img_fn, 'T2_FLAIR.nii'))))
+        """
+        t1_sitk=sitk.ReadImage(str(os.path.join(img_fn,'mr_train_1001_image.nii')))
+        t1 = sitk.GetArrayFromImage(t1_sitk)
 
         # Normalise volume images
         t1 = whitening(t1)
-        t1_ir = whitening(t1_ir)
-        t2_fl = whitening(t2_fl)
+        # t1_ir = whitening(t1_ir)
+        # t2_fl = whitening(t2_fl)
 
         # Create a 4D multi-sequence image (i.e. [channels, x, y, z])
-        images = np.stack([t1, t1_ir, t2_fl], axis=-1).astype(np.float32)
+        #images = np.stack([t1, t1_ir, t2_fl], axis=-1).astype(np.float32)
+        images = np.stack([t1], axis=-1).astype(np.float32)
 
         if mode == tf.estimator.ModeKeys.PREDICT:
             yield {'features': {'x': images},
-                   'labels': None,
-                   'sitk': t1_sitk,
+                   'labels': None, 
+                    'sitk': t1_sitk,
                    'subject_id': subject_id}
 
+        """
         lbl = sitk.GetArrayFromImage(sitk.ReadImage(str(os.path.join(
             img_fn,
             'LabelsForTraining.nii')))).astype(np.int32)
+        """
+        lbl = sitk.GetArrayFromImage(sitk.ReadImage(str(os.path.join(
+            img_fn,
+            'mr_train_1001_label.nii')))).astype(np.int32)
 
         # Augment if used in training mode
         if mode == tf.estimator.ModeKeys.TRAIN:
