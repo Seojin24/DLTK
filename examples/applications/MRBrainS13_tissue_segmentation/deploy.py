@@ -88,12 +88,14 @@ def predict(args):
 
 if __name__ == '__main__':
     # Set up argument parser
-    parser = argparse.ArgumentParser(description='MRBrainS13 example segmentation deploy script')
+    parser = argparse.ArgumentParser(description='Cardiac example segmentation deploy script')
+     # parser = argparse.ArgumentParser(description='MRBrainS13 example segmentation deploy script')
     parser.add_argument('--verbose', default=False, action='store_true')
     parser.add_argument('--cuda_devices', '-c', default='0')
 
     parser.add_argument('--model_path', '-p', default='/tmp/mrbrains_segmentation/')
-    parser.add_argument('--csv', default='mrbrains.csv')
+    # parser.add_argument('--csv', default='mrbrains.csv')
+    parser.add_argument('--csv', default='mrcardiac.csv')
 
     args = parser.parse_args()
 

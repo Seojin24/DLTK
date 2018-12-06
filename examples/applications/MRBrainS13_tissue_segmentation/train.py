@@ -94,14 +94,19 @@ def model_fn(features, labels, mode, params):
     my_image_summaries['labels'] = tf.cast(labels['y'], tf.float32)[0, 0, :, :]
     my_image_summaries['predictions'] = tf.cast(net_output_ops['y_'], tf.float32)[0, 0, :, :]
 
-    expected_output_size = [1, 128, 128, 1]  # [B, W, H, C]
+    #expected_output_size = [1, 128, 128, 1]  
+    expected_output_size = [256, 256, 256]  
+    # [B, W, H, C]  
+    #exported_output_size = []
+    #[256,256,256] 
+
     [tf.summary.image(name, tf.reshape(image, expected_output_size))
      for name, image in my_image_summaries.items()]
 
     # 4.2 (optional) create custom metric summaries for tensorboard
     dice_tensor = tf.py_func(dice, [net_output_ops['y_'],
                                     labels['y'],
-                                    tf.constant(NUM_CLASSES)], tf.float32)
+                                    tf.constant(NUM_CLASSES)], tf.float32) 
     [tf.summary.scalar('dsc_l{}'.format(i), dice_tensor[i])
      for i in range(NUM_CLASSES)]
 
