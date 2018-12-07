@@ -20,11 +20,8 @@ from reader import read_fn
 EVAL_EVERY_N_STEPS = 100
 EVAL_STEPS = 1
 
-<<<<<<< HEAD
+
 NUM_CLASSES = 9 
-=======
-NUM_CLASSES = 9
->>>>>>> 26d945cb77a81a77b1be7937afdc3b8531e47769
 NUM_CHANNELS = 1
 
 NUM_FEATURES_IN_SUMMARIES = min(4, NUM_CHANNELS)
