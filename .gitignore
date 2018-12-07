@@ -5,3 +5,4 @@ _docs/build
 *.pyc
 .idea
 .ipynb_checkpoints
+data

@@ -20,7 +20,11 @@ from reader import read_fn
 EVAL_EVERY_N_STEPS = 100
 EVAL_STEPS = 1
 
+<<<<<<< HEAD
 NUM_CLASSES = 9 
+=======
+NUM_CLASSES = 9
+>>>>>>> 26d945cb77a81a77b1be7937afdc3b8531e47769
 NUM_CHANNELS = 1
 
 NUM_FEATURES_IN_SUMMARIES = min(4, NUM_CHANNELS)
@@ -136,6 +140,7 @@ def train(args):
     val_filenames = all_filenames[4:5]
 
     # Set up a data reader to handle the file i/o.
+<<<<<<< HEAD
     reader_params = {
                      #'n_examples': 18,
                      'n_examples': 5,
@@ -143,6 +148,12 @@ def train(args):
                      'example_size': [256, 256, 256],
                      'extract_examples': True
                      }
+=======
+    reader_params = {'n_examples': 18,
+                     'example_size': [4, 128, 128],
+                     'extract_examples': True}
+    NUM_CHANNELS=1
+>>>>>>> 26d945cb77a81a77b1be7937afdc3b8531e47769
     reader_example_shapes = {'features': {'x': reader_params['example_size'] + [NUM_CHANNELS, ]},
                              'labels': {'y': reader_params['example_size']}}
     reader = Reader(read_fn,
@@ -157,9 +168,15 @@ def train(args):
         example_shapes=reader_example_shapes,
         batch_size=BATCH_SIZE,
         shuffle_cache_size=SHUFFLE_CACHE_SIZE,
+<<<<<<< HEAD
         params=reader_params)
     #error 발생 지점 
     #print(train_input_fn)
+=======
+        params=reader_params) 
+    
+    #print(reader_example_shapes)
+>>>>>>> 26d945cb77a81a77b1be7937afdc3b8531e47769
 
     val_input_fn, val_qinit_hook = reader.get_inputs(
         file_references=val_filenames,
