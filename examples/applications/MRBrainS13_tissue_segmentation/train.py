@@ -21,7 +21,7 @@ EVAL_EVERY_N_STEPS = 100
 EVAL_STEPS = 1
 
 NUM_CLASSES = 9
-NUM_CHANNELS = 3
+NUM_CHANNELS = 1
 
 NUM_FEATURES_IN_SUMMARIES = min(4, NUM_CHANNELS)
 
@@ -89,8 +89,8 @@ def model_fn(features, labels, mode, params):
     # 4.1 (optional) create custom image summaries for tensorboard
     my_image_summaries = {}
     my_image_summaries['feat_t1'] = features['x'][0, 0, :, :, 0]
-    my_image_summaries['feat_t1_ir'] = features['x'][0, 0, :, :, 1]
-    my_image_summaries['feat_t2_flair'] = features['x'][0, 0, :, :, 2]
+    #my_image_summaries['feat_t1_ir'] = features['x'][0, 0, :, :, 1]
+    #my_image_summaries['feat_t2_flair'] = features['x'][0, 0, :, :, 2]
     my_image_summaries['labels'] = tf.cast(labels['y'], tf.float32)[0, 0, :, :]
     my_image_summaries['predictions'] = tf.cast(net_output_ops['y_'], tf.float32)[0, 0, :, :]
 
@@ -139,6 +139,7 @@ def train(args):
     reader_params = {'n_examples': 18,
                      'example_size': [4, 128, 128],
                      'extract_examples': True}
+    NUM_CHANNELS=1
     reader_example_shapes = {'features': {'x': reader_params['example_size'] + [NUM_CHANNELS, ]},
                              'labels': {'y': reader_params['example_size']}}
     reader = Reader(read_fn,
@@ -153,7 +154,9 @@ def train(args):
         example_shapes=reader_example_shapes,
         batch_size=BATCH_SIZE,
         shuffle_cache_size=SHUFFLE_CACHE_SIZE,
-        params=reader_params)
+        params=reader_params) 
+    
+    #print(reader_example_shapes)
 
     val_input_fn, val_qinit_hook = reader.get_inputs(
         file_references=val_filenames,
